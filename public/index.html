@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storytelling and Reminiscence Programs</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+</head>
+
+<body>
+    <header>
+        <h1>Storytelling and Reminiscence Programs</h1>
+        <p>Share and relive your life experiences with our community</p>
+    </header>
+
+    <section>
+        <h2>Upcoming Events</h2>
+        <p>Join us for our next storytelling session and connect with others through shared experiences.</p>
+        <ul>
+            <li>Date: [Event Date]</li>
+            <li>Time: [Event Time]</li>
+            <li>Location: [Event Location]</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Share Your Story</h2>
+        <p>Have a story to tell? We'd love to hear it! Share your experiences with our community.</p>
+        <!-- Update the form action to match your Express route -->
+        <form action="/submit" method="post">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="story">Your Story:</label>
+            <textarea id="story" name="story" rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Past Stories</h2>
+        <p>Read and explore the stories shared by our community members.</p>
+        <a href="stories.html">View Stories</a>
+
+        <!-- Add an ID to the list where past stories will be displayed -->
+        <ul id="past-stories-list"></ul>
+    </section>
+    <script>
+        // Fetch and display past stories
+        fetch('/stories')
+            .then(response => response.json())
+            .then(data => {
+                const pastStoriesList = document.getElementById('past-stories-list');
+
+                // Iterate over the fetched data and create list items
+                data.forEach(story => {
+                    const listItem = document.createElement('li');
+                    listItem.innerHTML = `<strong>${story.name}:</strong> ${story.story}`;
+                    pastStoriesList.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Error fetching past stories:', error));
+    </script>
+
+    <footer>
+        <p>&copy; 2023 Storytelling and Reminiscence Programs</p>
+    </footer>
+</body>
+
+</html>
